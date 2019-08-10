@@ -4,7 +4,7 @@ Hi there, this my answer for the [code kata 09](codekata.com/kata/kata09-back-to
 
 ## Installation
 
-This a regular Clojure project so all you have to do is use [lein].(https://leiningen.org/)
+This a regular Clojure project so all you have to do is use [lein](https://leiningen.org/).
 
 ## Future
 
