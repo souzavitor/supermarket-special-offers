@@ -9,10 +9,12 @@
                  [ch.qos.logback/logback-classic "1.2.3" :exclusions [org.slf4j/slf4j-api]]
                  [org.slf4j/jul-to-slf4j "1.7.25"]
                  [org.slf4j/jcl-over-slf4j "1.7.25"]
-                 [org.slf4j/log4j-over-slf4j "1.7.25"]]
+                 [org.slf4j/log4j-over-slf4j "1.7.25"]
+                 [org.clojure/data.json "0.2.6"]]
   :main ^:skip-aot supermarket-special-offers.server
   :target-path "target/%s"
-  :profiles {:dev {:aliases {"run-dev" 
+  :resource-paths ["config", "resources"]
+  :profiles {:dev {:aliases {"run-dev"
                              ["trampoline" "run" "-m" "supermarket-special-offers.server/run-dev"]}
                    :dependencies [[io.pedestal/pedestal.service-tools "0.5.5"]]}
              :uberjar {:aot [supermarket-special-offers.server]}})
