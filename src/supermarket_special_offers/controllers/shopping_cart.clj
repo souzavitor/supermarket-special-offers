@@ -15,7 +15,7 @@
     (throw (IllegalArgumentException. (str "Item \"" sku "\" is not in your shopping cart"))))
   (swap!
    shopping-cart
-   shopping_cart_logic/shopping-cart-without-item
+   shopping_cart_logic/without-item
    sku))
 
 ;; Add a new item in the shopping cart state
@@ -24,8 +24,8 @@
     (throw (IllegalArgumentException. (str "Offer \"" (get new-item :sku) "\" does not exist"))))
   (swap!
    shopping-cart
-   shopping_cart_logic/shopping-cart-with-new-item
-   {(get new-item :sku) new-item}))
+   shopping_cart_logic/with-or-without-item
+   new-item))
 
 ;; Scan one item at a time
 (defn scan-item [sku]

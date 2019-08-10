@@ -1,23 +1,23 @@
 (ns supermarket-special-offers.controllers.shopping_cart_test
   (:require
-    [clojure.test :refer :all]
-    [clojure.pprint :as pp]
-    [supermarket-special-offers.logic.special_offers :as special_offers_logic]
-    [supermarket-special-offers.controllers.shopping_cart :as shopping_cart_controller]))
+   [clojure.test :refer :all]
+   [clojure.pprint :as pp]
+   [supermarket-special-offers.logic.special_offers :as special_offers_logic]
+   [supermarket-special-offers.controllers.shopping_cart :as shopping_cart_controller]))
 
 (deftest test-shopping-cart-controller
   (testing "Adding nonexistent item to the shopping cart"
     (is
-      (thrown-with-msg?
-        IllegalArgumentException
-        #"Offer \"DONTDOIT\" does not exist"
-        (shopping_cart_controller/add-item {:sku "DONTDOIT" :qty 100}))))
+     (thrown-with-msg?
+      IllegalArgumentException
+      #"Offer \"DONTDOIT\" does not exist"
+      (shopping_cart_controller/add-item {:sku "DONTDOIT" :qty 100}))))
   (testing "Adding nonexistent item to the shopping cart"
     (is
-      (thrown-with-msg?
-        IllegalArgumentException
-        #"Offer \"DONTDOIT\" does not exist"
-        (shopping_cart_controller/scan-item "DONTDOIT"))))
+     (thrown-with-msg?
+      IllegalArgumentException
+      #"Offer \"DONTDOIT\" does not exist"
+      (shopping_cart_controller/scan-item "DONTDOIT"))))
   (testing "Add new items in the shopping cart state"
     (special_offers_logic/create-offers-from-file "offers.txt")
     (shopping_cart_controller/scan-item "A")
@@ -30,7 +30,8 @@
     (is (= (count (get @shopping_cart_controller/shopping-cart :items)) 1))
     (is (contains? (get @shopping_cart_controller/shopping-cart :items) "A"))
     (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :sku))
-    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :qty)))
+    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :qty))
+    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :subtotal)))
   (testing "Add new items in the shopping cart state"
     (special_offers_logic/create-offers-from-file "offers.txt")
     (shopping_cart_controller/add-item {:sku "A" :qty 10})
@@ -38,7 +39,8 @@
     (is (= (count (get @shopping_cart_controller/shopping-cart :items)) 1))
     (is (contains? (get @shopping_cart_controller/shopping-cart :items) "A"))
     (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :sku))
-    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :qty)))
+    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :qty))
+    (is (contains? (get-in @shopping_cart_controller/shopping-cart [:items "A"]) :subtotal)))
   (testing "Calculate price as you add items"
     (special_offers_logic/create-offers-from-file "offers.txt")
     (shopping_cart_controller/empty-shopping-cart)
