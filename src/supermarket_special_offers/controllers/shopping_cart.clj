@@ -1,7 +1,7 @@
 (ns supermarket-special-offers.controllers.shopping_cart
   (:require
    [supermarket-special-offers.logic.shopping_cart :as shopping_cart_logic]
-   [supermarket-special-offers.logic.special_offers :as special_offers_logic])
+   [supermarket-special-offers.controllers.special_offers :as special_offers_controller])
   (:gen-class))
 
 ;; Initiate shopping cart state
@@ -20,7 +20,7 @@
 
 ;; Add a new item in the shopping cart state
 (defn add-item [new-item]
-  (if (not (contains? @special_offers_logic/offers (get new-item :sku)))
+  (if (not (contains? @special_offers_controller/offers (get new-item :sku)))
     (throw (IllegalArgumentException. (str "Offer \"" (get new-item :sku) "\" does not exist"))))
   (swap!
    shopping-cart

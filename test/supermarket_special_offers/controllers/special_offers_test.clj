@@ -1,10 +1,13 @@
 (ns supermarket-special-offers.controllers.special_offers_test
-  (:require
-    [clojure.test :refer :all]
-    [supermarket-special-offers.controllers.special_offers :as special_offers_controller]
-    [supermarket-special-offers.logic.special_offers :as special_offers_logic]))
+  (:require [clojure.test :refer :all]
+            [supermarket-special-offers.controllers.special_offers :as special_offers_controller]
+            [supermarket-special-offers.logic.special_offers :as special_offers_logic]))
 
 (deftest test-special-offers-controller
+  (testing "Reset Offers state from file"
+    (special_offers_controller/new-offers-from-file "offers.txt")
+    (is (map @special_offers_controller/offers))
+    (is (= (count @special_offers_controller/offers) 3)))
   ;; Testing function that saves a new offer
   (testing "Saves new offer"
     (let [old-offer-list (special_offers_logic/create-offers-from-file "offers.txt")

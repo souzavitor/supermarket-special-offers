@@ -1,6 +1,6 @@
 (ns supermarket-special-offers.logic.shopping_cart
   (:require [clojure.pprint :as pp]
-            [supermarket-special-offers.logic.special_offers :as special_offers_logic])
+            [supermarket-special-offers.controllers.special_offers :as special_offers_controller])
   (:gen-class))
 
 ;; Calculate a offer by multiplying the price by the quantity
@@ -17,7 +17,7 @@
 ;; Calculate the price of item according to special offer rules or regular offer rules
 (defn calc-shopping-cart-item-price [item]
   (let [qty (get item :qty)
-        offer-rules (get @special_offers_logic/offers (get item :sku))
+        offer-rules (get @special_offers_controller/offers (get item :sku))
         special-price (get offer-rules :special-price)
         special-cond (get offer-rules :special-cond)
         price (get offer-rules :price)]

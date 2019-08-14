@@ -1,7 +1,7 @@
 (ns supermarket-special-offers.server
   (:require [io.pedestal.http :as server]
             [io.pedestal.http.route :as route]
-            [supermarket-special-offers.logic.special_offers :as special_offers_logic]
+            [supermarket-special-offers.controllers.special_offers :as special_offers_controller]
             [supermarket-special-offers.service :as service])
   (:gen-class))
 
@@ -31,6 +31,6 @@
 (defn -main
   "The entry-point for 'lein run'"
   [& args]
-  (special_offers_logic/create-offers-from-file "offers.txt")
+  (special_offers_controller/new-offers-from-file "offers.txt")
   (println "\nCreating your server... :D")
   (server/start runnable-service))
